@@ -1,17 +1,17 @@
 let G = 1;
 
 class CelestialObject {
-    constructor(x, y, mass, color) {
+    constructor(x, y, mass, initial_vel, color) {
         this.mass = mass;
         this.color = color;
         this.pos = createVector(x, y);
-        this.vel = createVector(0, 0);
+        this.vel = initial_vel;
         this.acc = createVector(0, 0);
-        this.r = sqrt(mass) * 10;
+        this.r = sqrt(mass) * 3;
     }
 
     applyForce(force) {
-        this.acc.add(p5.Vector.div(force, r));
+        this.acc.add(p5.Vector.div(force, this.mass));
     }
 
     edges() {
