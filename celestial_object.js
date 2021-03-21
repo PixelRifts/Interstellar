@@ -1,3 +1,5 @@
+let G = 1;
+
 class CelestialObject {
     constructor(x, y, mass, color) {
         this.mass = mass;
@@ -24,6 +26,15 @@ class CelestialObject {
             this.pos.x = this.r;
             this.vel.x *= -1;
         }
+    }
+
+    attract(other) {
+        let force = p5.Vector.sub(this.pos, other.pos);
+        let distanceSq = force.magSq();
+
+        let strength = G * (this.mass * other.pos) / distanceSq;
+        force.setMag(strength);
+        other.applyForce(force);
     }
 
     update() {
