@@ -1,5 +1,8 @@
 let objects = [];
 let slider;
+let slingObj;
+let dragging = false;
+let clearDrag = false;
 let G = 1;
 
 function setup() {
@@ -22,17 +25,36 @@ function draw() {
         }
         objects[i].show();
     }
-
-    for (let i = 0; i < objects.length; i++) {
-        
-    }
 }
 
 function mouseClicked() {
-    let vec = createVector(mouseX, mouseY).sub(objects[0].pos).setMag(1);
-    let lr = random(0, 100);
-    let mass = random(5, 40);
-    let c = color(random(255), random(255), random(255));
-    if (lr <= 50) objects.push(new CelestialObject(mouseX, mouseY, mass, createVector(vec.y, -vec.x), c));
-    else objects.push(new CelestialObject(mouseX, mouseY, mass, createVector(-vec.y, vec.x), c));
+    if (!dragging) {
+        let vec = createVector(mouseX, mouseY).sub(objects[0].pos).setMag(1);
+        let lr = random(0, 100);
+        let mass = random(5, 40);
+        let c = color(random(255), random(255), random(255));
+        if (lr <= 50) objects.push(new CelestialObject(mouseX, mouseY, mass, createVector(vec.y, -vec.x), c));
+        else objects.push(new CelestialObject(mouseX, mouseY, mass, createVector(-vec.y, vec.x), c));
+    }
+    if (clearDrag) {
+        dragging = false;
+        clearDrag = false;
+    }
+}
+
+function mousePressed() {
+    for (let i = 0; i < objects.length; i++) {
+        if (objects[i].checkPoint(mouseX, mouseY)) {
+            dragging = true;
+            slingObj = objects[i];
+        }
+    }
+}
+
+function mouseReleased() {
+    if (dragging) {
+        let drag = p5.Vector.sub(slingObj.pos, createVector(mouseX, mouseY)).div(20);
+        slingObj.vel = drag;
+        clearDrag = true;
+    }
 }

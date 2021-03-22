@@ -52,11 +52,21 @@ class CelestialObject {
         ellipse(this.pos.x, this.pos.y, this.r*2);
         beginShape();
         stroke(this.color);
+        strokeWeight(1);
         noFill();
         for (let i = 0; i < this.history.length; i++) {
             let pos = this.history[i];
             vertex(pos.x, pos.y);
         }
         endShape();
+        if (this.checkPoint(mouseX, mouseY)) {
+            noFill();
+            strokeWeight(5);
+            ellipse(this.pos.x, this.pos.y, this.r*4);
+        }
+    }
+
+    checkPoint(x, y) {
+        return sqrt(((x - this.pos.x) * (x - this.pos.x)) + ((y - this.pos.y) * (y - this.pos.y))) < this.r;
     }
 }
