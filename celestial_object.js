@@ -1,11 +1,12 @@
 class CelestialObject {
-    constructor(x, y, mass, initial_vel, color) {
+    constructor(x, y, mass, initial_vel, color, freeze) {
         this.mass = mass;
         this.color = color;
         this.pos = createVector(x, y);
         this.vel = initial_vel;
         this.acc = createVector(0, 0);
         this.r = sqrt(mass) * 2;
+        this.freeze = freeze;
         this.history = [];
     }
 
@@ -38,12 +39,22 @@ class CelestialObject {
 
     update() {
         this.history.push({ x: this.pos.x, y: this.pos.y });
-        this.vel.add(this.acc);
-        this.pos.add(this.vel);
-        this.acc.set(0, 0);
+        if (!this.freeze) {
+            this.vel.add(this.acc);
+            this.pos.add(this.vel);
+            this.acc.set(0, 0);
+        }
         if (this.history.length > 40) {
             this.history.splice(0, 1);
         }
+    }
+
+    unfreeze() {
+        this.freeze = false;
+    }
+
+    freeze() {
+        this.freeze = true;
     }
 
     show() {
