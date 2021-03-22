@@ -13,8 +13,14 @@ function setup() {
 }
 
 function draw() {
-    background(50);
+    background(0);
     G = slider.value();
+
+    if (dragging) {
+        stroke(255);
+        strokeWeight(4);
+        line(mouseX, mouseY, slingObj.pos.x, slingObj.pos.y);
+    }
 
     for (let i = 0; i < objects.length; i++) {
         objects[i].update();
@@ -53,7 +59,7 @@ function mousePressed() {
 
 function mouseReleased() {
     if (dragging) {
-        let drag = p5.Vector.sub(slingObj.pos, createVector(mouseX, mouseY)).div(20);
+        let drag = p5.Vector.sub(slingObj.pos, createVector(mouseX, mouseY)).div(40);
         slingObj.vel = drag;
         clearDrag = true;
     }
