@@ -1,12 +1,17 @@
 let objects = [];
+let slider;
+let G = 1;
 
 function setup() {
     createCanvas(1200, 800);
-    let s = color(255, 255, 50);
+    slider = createSlider(0, 10, 1, .01);
+    let c = color(253, 184, 19);
+    objects.push(new CelestialObject(600, 400, 600, createVector(), c));
 }
 
 function draw() {
     background(50);
+    G = slider.value();
 
     for (let i = 0; i < objects.length; i++) {
         objects[i].update();
@@ -17,10 +22,14 @@ function draw() {
         }
         objects[i].show();
     }
+
+    for (let i = 0; i < objects.length; i++) {
+        
+    }
 }
 
 function mouseClicked() {
-    let vec = createVector();
+    let vec = createVector(mouseX, mouseY).sub(objects[0].pos).setMag(1);
     let lr = random(0, 100);
     let mass = random(5, 40);
     let c = color(random(255), random(255), random(255));
