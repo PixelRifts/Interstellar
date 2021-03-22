@@ -6,6 +6,7 @@ class CelestialObject {
         this.vel = initial_vel;
         this.acc = createVector(0, 0);
         this.r = sqrt(mass) * 2;
+        this.history = [];
     }
 
     applyForce(force) {
@@ -36,14 +37,26 @@ class CelestialObject {
     }
 
     update() {
+        this.history.push({ x: this.pos.x, y: this.pos.y });
         this.vel.add(this.acc);
         this.pos.add(this.vel);
         this.acc.set(0, 0);
+        if (this.history.length > 40) {
+            this.history.splice(0, 1);
+        }
     }
 
     show() {
         noStroke();
         fill(this.color);
         ellipse(this.pos.x, this.pos.y, this.r*2);
+        beginShape();
+        stroke(this.color);
+        noFill();
+        for (let i = 0; i < this.history.length; i++) {
+            let pos = this.history[i];
+            vertex(pos.x, pos.y);
+        }
+        endShape();
     }
 }
