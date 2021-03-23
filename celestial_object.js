@@ -70,7 +70,7 @@ class CelestialObject {
             vertex(pos.x, pos.y);
         }
         endShape();
-        if (this.checkPoint(mouseX, mouseY)) {
+        if (this.checkPoint(mouseX + tX, mouseY + tY)) {
             noFill();
             strokeWeight(5);
             ellipse(this.pos.x, this.pos.y, this.r*4);

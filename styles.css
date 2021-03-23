@@ -1,11 +1,12 @@
 .center {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: left;
+    align-items: right;
 }
 
 .center-nice {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: left;
+    align-items: right;
+    color: blueviolet;
 }

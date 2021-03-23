@@ -5,21 +5,38 @@ let dragging = false;
 let clearDrag = false;
 let G = 1;
 
+let tX, tY;
+
 function setup() {
     createCanvas(1200, 800);
     slider = createSlider(0, 10, 1, .01);
     let c = color(253, 184, 19);
+    tX = 0; tY = 0;
     objects.push(new CelestialObject(600, 400, 600, createVector(), c));
 }
 
 function draw() {
+    if (keyIsDown(65)) {
+        tX -= 5;
+    } else if (keyIsDown(68)) {
+        tX += 5;
+    }
+    if (keyIsDown(87)) {
+        tY -= 5;
+    } else if (keyIsDown(83)) {
+        tY += 5;
+    }
+
+    push();
+    translate(-tX, -tY);
+    scale(s, s);
     background(0);
     G = slider.value();
 
     if (dragging) {
         stroke(255);
         strokeWeight(4);
-        line(mouseX, mouseY, slingObj.pos.x, slingObj.pos.y);
+        line(mouseX + tX, mouseY + tY, slingObj.pos.x, slingObj.pos.y);
     }
 
     for (let i = 0; i < objects.length; i++) {
@@ -31,24 +48,29 @@ function draw() {
         }
         objects[i].show();
     }
+    pop();
 }
 
 function mousePressed() {
     for (let i = 0; i < objects.length; i++) {
-        if (!dragging) {
-            let mass = random(5, 40);
-            let c = color(random(255), random(255), random(255));
-            let obj = new CelestialObject(mouseX, mouseY, mass, createVector(), c, true);
-            objects.push(obj);
+        if (objects[i].checkPoint(mouseX + tX, mouseY + tY)) {
             dragging = true;
-            slingObj = obj;
+            slingObj = objects[i];
         }
+    }
+    if (!dragging) {
+        let mass = random(5, 40);
+        let c = color(random(255), random(255), random(255));
+        let obj = new CelestialObject(mouseX + tX, mouseY + tY, mass, createVector(), c, true);
+        objects.push(obj);
+        dragging = true;
+        slingObj = obj;
     }
 }
 
 function mouseReleased() {
     if (dragging) {
-        let drag = p5.Vector.sub(slingObj.pos, createVector(mouseX, mouseY)).div(40);
+        let drag = p5.Vector.sub(slingObj.pos, createVector(mouseX + tX, mouseY + tY)).div(35);
         slingObj.vel.set(drag);
         slingObj.unfreeze();
     }
