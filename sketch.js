@@ -29,7 +29,6 @@ function draw() {
 
     push();
     translate(-tX, -tY);
-    scale(s, s);
     background(0);
     G = slider.value();
 
