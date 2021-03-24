@@ -44,7 +44,8 @@ function draw() {
         objects[i].update();
 	    for (let j = 0; j < objects.length; j++) {
             if (objects[i] != objects[j]) {
-                objects[i].attract(objects[j]);
+                if (!objects[i].freeze)
+                    objects[i].attract(objects[j]);
             }
         }
         objects[i].show();
