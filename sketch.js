@@ -8,8 +8,10 @@ let G = 1;
 let tX, tY;
 
 function setup() {
-    createCanvas(1200, 800);
+    var canvas = createCanvas(1200, 800);
+    canvas.parent('canvas');
     slider = createSlider(0, 10, 1, .01);
+    slider.parent('slider');
     let c = color(253, 184, 19);
     tX = 0; tY = 0;
     objects.push(new CelestialObject(600, 400, 600, createVector(), c));
