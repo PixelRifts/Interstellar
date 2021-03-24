@@ -54,19 +54,21 @@ function draw() {
 }
 
 function mousePressed() {
-    for (let i = 0; i < objects.length; i++) {
-        if (objects[i].checkPoint(mouseX + tX, mouseY + tY)) {
-            dragging = true;
-            slingObj = objects[i];
+    if (pointInRect(mouseX, mouseY, 0, 0, width, height)) {
+        for (let i = 0; i < objects.length; i++) {
+            if (objects[i].checkPoint(mouseX + tX, mouseY + tY)) {
+                dragging = true;
+                slingObj = objects[i];
+            }
         }
-    }
-    if (!dragging) {
-        let mass = random(5, 40);
-        let c = color(random(255), random(255), random(255));
-        let obj = new CelestialObject(mouseX + tX, mouseY + tY, mass, createVector(), c, true);
-        objects.push(obj);
-        dragging = true;
-        slingObj = obj;
+        if (!dragging) {
+            let mass = random(5, 40);
+            let c = color(random(255), random(255), random(255));
+            let obj = new CelestialObject(mouseX + tX, mouseY + tY, mass, createVector(), c, true);
+            objects.push(obj);
+            dragging = true;
+            slingObj = obj;
+        }
     }
 }
 
@@ -78,4 +80,8 @@ function mouseReleased() {
     }
     dragging = false;
     slingObj = undefined;
+}
+
+function pointInRect(x, y, minX, minY, maxX, maxY) {
+    return x >= minX && x <= maxX && y >= minY && y <= maxY;
 }
