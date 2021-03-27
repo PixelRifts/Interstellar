@@ -4,11 +4,11 @@
     margin: 0px;
     padding: 0px;
     font-family: 'Roboto', sans-serif;
-    color: #50514F;
+    color: #dadada;
 }
 
 body {
-    background-color: #E8F1F2;
+    background-color: #0a0a0a;
 }
 
 h1 {
@@ -45,7 +45,7 @@ span {
     width: 40%;
     height: 10px;
     border-radius: 7px;
-    background-color: silver;
+    background-color: #6a6a6a;
     outline: none;
 }
 
@@ -55,5 +55,5 @@ span {
     width: 20px;
     height: 20px;
     border-radius: 50%; 
-    background-color: #527BCA;
+    background-color: #527bca;
 }
