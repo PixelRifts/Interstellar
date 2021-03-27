@@ -8,13 +8,13 @@ let G = 1;
 let tX, tY;
 
 function setup() {
-    var canvas = createCanvas(1200, 800);
+    let canvas = createCanvas(window.innerWidth / 1.5, window.innerHeight / 1.5);
     canvas.parent('canvas');
     slider = createSlider(0, 10, 1, .01);
     slider.parent('slider');
     let c = color(253, 184, 19);
     tX = 0; tY = 0;
-    objects.push(new CelestialObject(600, 400, 600, createVector(), c));
+    objects.push(new CelestialObject((window.innerWidth / 1.5) / 2, (window.innerHeight / 1.5) / 2, 600, createVector(), c));
 }
 
 function draw() {

@@ -27,33 +27,3 @@ h2 {
 span {
     font-weight: 600;
 }
-
-#canvas {
-    display: flex;
-    justify-content: center;
-}
-
-#slider {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0px;
-}
-
-#slider input {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 40%;
-    height: 10px;
-    border-radius: 7px;
-    background-color: silver;
-    outline: none;
-}
-
-#slider input::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%; 
-    background-color: #527BCA;
-}
